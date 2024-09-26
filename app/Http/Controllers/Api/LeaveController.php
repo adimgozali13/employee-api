@@ -14,14 +14,14 @@ class LeaveController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
         try {
             $data = Leave::orderBy('created_at', 'desc');
-            $user = User::where('id',$request->user_id)->first();
-            if ($user->role == 'employee') {
-                $data = $data->where('user_id', $request->user_id);
-            }
+            // $user = User::where('id',$request->user_id)->first();
+            // if ($user->role == 'employee') {
+            //     $data = $data->where('user_id', $request->user_id);
+            // }
             $data = $data->get();
             return response()->json([
                 'success' => true,
