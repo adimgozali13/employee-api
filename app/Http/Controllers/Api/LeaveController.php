@@ -86,10 +86,10 @@ class LeaveController extends Controller
     }
 
 
-    public function manageLeave(Request $request, $id)
+    public function manageLeave(Request $request)
     {
         try {
-            $leave = Leave::where('id', $id)->first();
+            $leave = Leave::where('id', $request->id)->first();
             $leave->status = $request->status;
             $leave->save();
             return response()->json([

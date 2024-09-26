@@ -17,7 +17,7 @@ class EmployeeController extends Controller
     public function index()
     {
         try {
-            $data = User::orderBy('created_at','desc')->get();
+            $data = User::orderBy('created_at', 'desc')->get();
             return response()->json([
                 'success' => true,
                 'data' => $data,
@@ -95,10 +95,10 @@ class EmployeeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
         try {
-            $data = User::where('id', $id)->get();
+            $data = User::where('id', $request->id)->get();
             return response()->json([
                 'success' => true,
                 'data' => $data,
@@ -124,9 +124,9 @@ class EmployeeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $user = User::where('id', $id)->first();
+        $user = User::where('id', $request->id)->first();
 
         $validator = Validator::make($request->all(), [
             'name' => 'nullable|string|max:255',
@@ -191,8 +191,13 @@ class EmployeeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $user = User::where('id', $request->id)->first();
+        if (!empty($user)) {
+            $user->delete();
+            return response()->json(['message' => 'User deleted successfully.'], 200);
+        }
+        return response()->json(['message' => 'User not found.'], 404);
     }
 }

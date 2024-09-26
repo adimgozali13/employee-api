@@ -12,14 +12,15 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::prefix('employee')->group(function () {
     Route::get('/', [EmployeeController::class, 'index']);
     Route::post('/store', [EmployeeController::class, 'store']);
-    Route::get('/show/{id}', [EmployeeController::class, 'show']);
-    Route::post('/update/{id}', [EmployeeController::class, 'update']);
+    Route::post('/destroy', [EmployeeController::class, 'destroy']);
+    Route::get('/show', [EmployeeController::class, 'show']);
+    Route::post('/update', [EmployeeController::class, 'update']);
 });
 
 Route::prefix('leave')->group(function () {
     Route::get('/', [LeaveController::class, 'index']);
     Route::post('/request', [LeaveController::class, 'requestLeave']);
-    Route::post('/manage/{id}', [LeaveController::class, 'manageLeave']);
+    Route::post('/manage', [LeaveController::class, 'manageLeave']);
 });
 
 
