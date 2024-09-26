@@ -17,7 +17,7 @@ class EmployeeController extends Controller
     public function index()
     {
         try {
-            $data = User::where('role', 'employee')->orderBy('created_at','desc')->get();
+            $data = User::orderBy('created_at','desc')->get();
             return response()->json([
                 'success' => true,
                 'data' => $data,
