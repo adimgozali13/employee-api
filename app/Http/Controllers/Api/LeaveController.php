@@ -53,7 +53,7 @@ class LeaveController extends Controller
         }
 
         $cl = Leave::where([
-            'user_id' => Auth::user()->id,
+            'user_id' => $request->user_id,
             'status' => 'pending',
         ])->first();
 
@@ -68,7 +68,7 @@ class LeaveController extends Controller
 
         try {
             $leave = Leave::create([
-                'user_id' => Auth::user()->id,
+                'user_id' => $request->user_id,
                 'start_date' => $request->start_date,
                 'end_date' => $request->end_date,
                 'status' => 'pending',
