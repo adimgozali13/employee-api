@@ -46,10 +46,6 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
 
-        return response()->json([
-            'data' => $request->photo,
-        ]);
-
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email|max:255',
