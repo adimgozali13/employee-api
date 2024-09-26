@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Leave;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -13,12 +14,13 @@ class LeaveController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
             $data = Leave::orderBy('created_at', 'desc');
-            if (Auth::user()->role == 'employee') {
-                $data = $data->where('user_id', Auth::user()->id);
+            $user = User::where('id',$request->user_id)->first();
+            if ($user->role == 'employee') {
+                $data = $data->where('user_id', $request->user_id);
             }
             $data = $data->get();
             return response()->json([
