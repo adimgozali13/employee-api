@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Leave;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -69,8 +70,8 @@ class LeaveController extends Controller
         try {
             $leave = Leave::create([
                 'user_id' => $request->user_id,
-                'start_date' => $request->start_date,
-                'end_date' => $request->end_date,
+                'start_date' => Carbon::createFromFormat('d/m/Y', $request->start_date)->format('Y-m-d'),
+                'end_date' => Carbon::createFromFormat('d/m/Y', $request->end_date)->format('Y-m-d'),
                 'status' => 'pending',
             ]);
             return response()->json([
