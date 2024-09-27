@@ -45,4 +45,11 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function leaves()
+    {
+        return $this->hasOne(Leave::class);
+    }
+
+    
 }
