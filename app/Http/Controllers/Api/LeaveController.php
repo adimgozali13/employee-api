@@ -82,7 +82,7 @@ class LeaveController extends Controller
             return response()->json([
                 'success' => false,
                 'data' => null,
-                'message' => 'Failed submitted leave request.'
+                'message' => $e->getMessage()
             ], 500);
         }
     }
