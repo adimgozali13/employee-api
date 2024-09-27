@@ -18,7 +18,7 @@ Route::prefix('employee')->group(function () {
 });
 
 Route::prefix('leave')->group(function () {
-    Route::get('/', [LeaveController::class, 'index']);
+    Route::post('/', [LeaveController::class, 'index']);
     Route::post('/request', [LeaveController::class, 'requestLeave']);
     Route::post('/manage', [LeaveController::class, 'manageLeave']);
 });
