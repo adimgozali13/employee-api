@@ -126,7 +126,7 @@ class EmployeeController extends Controller
      */
     public function update(Request $request)
     {
-        $user = User::where('id', $request->id)->first();
+        $user = User::where('id', $request->user_id)->first();
 
         $validator = Validator::make($request->all(), [
             'name' => 'nullable|string|max:255',
