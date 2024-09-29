@@ -18,8 +18,12 @@ class LeaveController extends Controller
     public function index(Request $request)
     {
         try {
-            $data = Leave::orderBy('created_at', 'desc')->with('user');
-            $user = User::where('id',$request->user_id)->first();
+            $data = Leave::orderByRaw("CASE status 
+            WHEN 'pending' THEN 1 
+            WHEN 'rejected' THEN 2 
+            WHEN 'approved' THEN 3 
+            ELSE 4 END")->with('user');
+            $user = User::where('id', $request->user_id)->first();
             if ($user->role == 'employee') {
                 $data = $data->where('user_id', $request->user_id);
             }
