@@ -98,7 +98,7 @@ class EmployeeController extends Controller
     public function show(Request $request)
     {
         try {
-            $data = User::where('id', $request->id)->get();
+            $data = User::where('id', $request->user_id)->first();
             return response()->json([
                 'success' => true,
                 'data' => $data,
