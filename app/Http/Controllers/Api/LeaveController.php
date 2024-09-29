@@ -18,7 +18,7 @@ class LeaveController extends Controller
     public function index(Request $request)
     {
         try {
-            $data = Leave::orderBy('created_at', 'desc');
+            $data = Leave::orderBy('created_at', 'desc')->with('user');
             $user = User::where('id',$request->user_id)->first();
             if ($user->role == 'employee') {
                 $data = $data->where('user_id', $request->user_id);
